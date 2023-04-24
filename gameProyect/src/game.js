@@ -46,12 +46,10 @@ const Game = {
         let xRandom = Math.floor(Math.random() * 21)
         let wRandom = Math.floor(Math.random() * 301)
 
-        if (this.frame % 20 == 0) {
-            console.log("Creando enemigos")
+        if (this.frame % 10 == 0) {
 
 
             this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom))
-            console.log(yRandom)
         }
     },
     //Limpiar Enemigos
@@ -69,6 +67,10 @@ const Game = {
 
             this.createEnemies()
             this.clearEnemies()
+
+            this.ship.checkBulletCollision(this.enemies) //chekeamos las bullets collison
+            //Si la vida es 0 te da game over
+            this.ship.shipSpects.vit.health ? this.isCollision() : this.gameOver()
         }, 50)
     },
     //Borrar y Dibujar
@@ -80,5 +82,39 @@ const Game = {
         this.enemies.forEach(e => {
             e.drawEnemies()
         })
+    },
+    //Colisiones De Nave con objetos 
+
+    isCollision() {
+
+        return this.enemies.some((enemies, i) => {
+            if (
+
+                this.ship.shipSpects.pos.x < enemies.enemiesSpects.pos.x + enemies.enemiesSpects.size.w &&
+                this.ship.shipSpects.pos.x + this.ship.shipSpects.size.w > enemies.enemiesSpects.pos.x &&
+                this.ship.shipSpects.pos.y < enemies.enemiesSpects.pos.y + enemies.enemiesSpects.size.h &&
+                this.ship.shipSpects.pos.y + this.ship.shipSpects.size.h > enemies.enemiesSpects.pos.y
+            ) {
+                this.ship.shipSpects.vit.health = this.ship.getDamage(enemies.enemiesSpects.vit.damage)
+                console.log(this.ship.shipSpects.vit.health)
+                this.enemies.splice(i, 1) //eliminamos el asteroide
+            }
+        })
+    },
+
+    //GAME OVER
+    gameOver() {
+
+
+        console.log("gameOver")
+        this.reset()
+
+    },
+
+    //resetea la pantalla 
+    reset() {
+        this.createShip()
+        this.enemies = []
     }
+
 }
