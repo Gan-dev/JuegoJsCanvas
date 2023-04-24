@@ -38,18 +38,25 @@ const Game = {
     },
     //crearNaves
     createShip() {
-        this.ship = new Ship(this.ctx, 500)
+        this.ship = new Ship(this.ctx, 500, this.canvasSize)
     },
     //crearEnmeigos
     createEnemies() {
-        /*       let yRandom = Math.floor(Math.random() * 10001)
-              if (this.frame % 20 == 0) {
-                  console.log("Creando enemigos")
-      
-      
-                  this.enemies.push(new Enemies(this.ctx, yRandom))
-                  console.log(yRandom)
-              } */
+        let yRandom = Math.floor(Math.random() * this.canvasSize.h)
+        let xRandom = Math.floor(Math.random() * 21)
+        let wRandom = Math.floor(Math.random() * 301)
+
+        if (this.frame % 20 == 0) {
+            console.log("Creando enemigos")
+
+
+            this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom))
+            console.log(yRandom)
+        }
+    },
+    //Limpiar Enemigos
+    clearEnemies() {
+        this.enemies = this.enemies.filter(e => e.enemiesSpects.pos.x > 0)
     },
 
     //corazon tukun
@@ -61,6 +68,7 @@ const Game = {
             this.drawAll()
 
             this.createEnemies()
+            this.clearEnemies()
         }, 50)
     },
     //Borrar y Dibujar
@@ -69,9 +77,8 @@ const Game = {
     },
     drawAll() {
         this.ship.drawShip()
-        /* this.enemies.forEach(e => {
+        this.enemies.forEach(e => {
             e.drawEnemies()
-        }) */
-        console.log(this.enemies)
+        })
     }
 }

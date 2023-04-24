@@ -1,26 +1,25 @@
-class bullets {
+class Bullets {
     constructor(ctx, shipSpects) {
         this.ctx = ctx;
-
-        this.posX = this.shipSpects.pos.x + this.shipSpects.size.w
-        this.posY = this.shipSpects.pos.y + this.shipSpects.size.h / 2
-
-
-        this.radius = 3
-
+        this.bulletsSpects = {
+            pos: { x: shipSpects.pos.x + (shipSpects.size.w / 2), y: shipSpects.pos.y + shipSpects.size.h / 2 },
+            size: { w: 250, h: 250 },
+            speed: 12
+        }
     }
 
-    draw() {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "red"
-        this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.closePath();
+
+    //draw() va a dibujar las balas
+
+    drawBullets() {
         this.move()
+        this.ctx.fillStyle = "red"
+        this.ctx.fillRect(this.bulletsSpects.pos.x, this.bulletsSpects.pos.y, 40, 20);
     }
+
+    //move() va a establecer el movimiento de la bala
 
     move() {
-        this.posX += this.shipSpects.speed
-        this.posY += this.velY;
+        this.bulletsSpects.pos.x += this.bulletsSpects.speed
     }
 }
