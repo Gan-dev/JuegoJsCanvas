@@ -3,8 +3,8 @@ class Bullets {
         this.ctx = ctx;
         this.bulletsSpects = {
             pos: { x: shipSpects.pos.x + (shipSpects.size.w / 2), y: shipSpects.pos.y + shipSpects.size.h / 2 },
-            size: { w: 250, h: 250 },
-            speed: 12
+            size: { w: 80, h: 40 },
+            speed: 80
         }
     }
 
@@ -13,8 +13,8 @@ class Bullets {
 
     drawBullets() {
         this.move()
-        this.ctx.fillStyle = "red"
-        this.ctx.fillRect(this.bulletsSpects.pos.x, this.bulletsSpects.pos.y, 40, 20);
+        this.ctx.fillStyle = "purple"
+        this.ctx.fillRect(this.bulletsSpects.pos.x, this.bulletsSpects.pos.y, this.bulletsSpects.size.w, this.bulletsSpects.size.h);
     }
 
     //move() va a establecer el movimiento de la bala

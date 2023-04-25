@@ -6,7 +6,7 @@ class Enemies {
             pos: { x: posX, y: posY },
             size: { w: wRandom, h: wRandom },
             vel: { x: velX, y: 2 },
-            vit: { health: 100, damage: 10 }
+            vit: { health: 200, damage: 10 }
         }
     }
     //Dibuja Enmigos
@@ -16,7 +16,7 @@ class Enemies {
         this.move()
     }
     move() {
-        //Hace que revote solo lo
+        //Hace que rebote los enemigos en el eje y = 0
         if (this.enemiesSpects.pos.y >= this.canvasSize.h - this.enemiesSpects.size.h) this.turnVertical()
         if (this.enemiesSpects.vel.x == 3) { this.enemiesSpects.vel.y += 0.3 }
         this.enemiesSpects.pos.x -= this.enemiesSpects.vel.x

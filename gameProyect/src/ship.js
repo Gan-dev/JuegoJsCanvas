@@ -3,11 +3,12 @@ class Ship {
         this.canvasSize = canvasSize,
             this.ctx = ctx,
             this.shipSpects = {
-                pos: { x: posX, y: 800 },
+                pos: { x: posX, y: canvasSize.h / 2 },
                 size: { w: 200, h: 200 },
                 vit: { health: 100, damage: 20 },
-                speed: 45
+                speed: 45,
             },
+            this.score = 0,
             //Segundo Jugadro
             /* this.shipSpects2 = {
                 pos: { x: 500 + posX, y: 500 },
@@ -94,10 +95,7 @@ class Ship {
     getDamage(damage) {
         return this.shipSpects.vit.health - damage
     }
-    //metodo que da daño
-    setDamage(enemieHealth) {
-        return this.shipSpects.vit.damage - enemieHealth
-    }
+
     //chequeamos las colisiones de los enemigos con las balas
     checkBulletCollision(enemie) {
         return enemie.forEach((enemies, i) => {
@@ -106,13 +104,12 @@ class Ship {
                     bullet.bulletsSpects.pos.x + bullet.bulletsSpects.size.w > enemies.enemiesSpects.pos.x &&
                     bullet.bulletsSpects.pos.y < enemies.enemiesSpects.pos.y + enemies.enemiesSpects.size.h &&
                     bullet.bulletsSpects.pos.y + bullet.bulletsSpects.size.h > enemies.enemiesSpects.pos.y) {
-                    enemies.enemiesSpects.vit.health = enemies.getDamage(20)
-                    console.log("la vida del enemigo de" + i + "es" + enemies.enemiesSpects.vit.health)
+                    enemies.enemiesSpects.vit.health = enemies.getDamage(this.shipSpects.vit.damage)
                     if (enemies.enemiesSpects.vit.health <= 0) {
+                        this.score += 10
                         this.removeEnemies(i, enemie)//llamamos a la funcion remove enemies
 
                     }
-
                     return this.bullets.splice(i2, 1)
 
                 }
@@ -125,5 +122,6 @@ class Ship {
 
         return enemyArray.splice(id, 1)
     }
+
 
 }
