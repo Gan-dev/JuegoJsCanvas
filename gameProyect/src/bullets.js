@@ -1,11 +1,16 @@
 class Bullets {
-    constructor(ctx, shipSpects) {
+    constructor(ctx, shipSpects, bullets, bulletsDireccion) {
+        this.posY
+        this.bullets = bullets,
+            this.bulletsDireccion = bulletsDireccion
         this.ctx = ctx;
         this.bulletsSpects = {
-            pos: { x: shipSpects.pos.x + (shipSpects.size.w / 2), y: shipSpects.pos.y + shipSpects.size.h / 2 },
-            size: { w: 80, h: 40 },
+            pos: { x: shipSpects.pos.x + (shipSpects.size.w / 2) + 100, y: shipSpects.pos.y + (shipSpects.size.h / 2) + 50 },
+            size: { w: 120, h: 50 },
             speed: 80
         }
+        this.image = new Image()
+        this.image.src = "./img/pepiRick.png"
     }
 
 
@@ -13,13 +18,26 @@ class Bullets {
 
     drawBullets() {
         this.move()
-        this.ctx.fillStyle = "purple"
-        this.ctx.fillRect(this.bulletsSpects.pos.x, this.bulletsSpects.pos.y, this.bulletsSpects.size.w, this.bulletsSpects.size.h);
+        this.ctx.drawImage(this.image,
+            this.bulletsSpects.pos.x,
+            this.bulletsSpects.pos.y,
+            this.bulletsSpects.size.w,
+            this.bulletsSpects.size.h
+        )
     }
 
     //move() va a establecer el movimiento de la bala
 
     move() {
-        this.bulletsSpects.pos.x += this.bulletsSpects.speed
+        if (this.bullets && this.bulletsDireccion == "up") {
+            this.bulletsSpects.pos.x += this.bulletsSpects.speed
+            this.bulletsSpects.pos.y -= this.bulletsSpects.speed
+        } else if (this.bullets && this.bulletsDireccion == "down") {
+            this.bulletsSpects.pos.x += this.bulletsSpects.speed
+            this.bulletsSpects.pos.y += this.bulletsSpects.speed
+        } else {
+            this.bulletsSpects.pos.x += this.bulletsSpects.speed
+
+        }
     }
 }

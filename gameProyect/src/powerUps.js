@@ -4,18 +4,25 @@ class PowerUps {
             this.canvasSize = canvasSize,
             this.powerUpsSpects = {
                 pos: { x: posX, y: posY },
-                size: { w: 200, h: 200 },
+                size: { w: 240, h: 150 },
                 vel: { x: velX, y: 10 },
-                color: color,
+                //ponemos las referencias que le pasamos al constructor
                 power: poder
             }
+        //this.typeOfPower = color
+        this.image = new Image()
+        this.image.src = color
 
     }
 
     //Dibuja los powerUps
     drawPowerUps() {
-        this.ctx.fillStyle = this.powerUpsSpects.color
-        this.ctx.fillRect(this.powerUpsSpects.pos.x, this.powerUpsSpects.pos.y, this.powerUpsSpects.size.w, this.powerUpsSpects.size.h)
+        this.ctx.drawImage(this.image,
+            this.powerUpsSpects.pos.x,
+            this.powerUpsSpects.pos.y,
+            this.powerUpsSpects.size.w,
+            this.powerUpsSpects.size.h
+        )
         this.movePowerUp() //me dice que el movimiento del power up no está definido
     }
 
@@ -34,7 +41,7 @@ class PowerUps {
     turnVertical() {
         this.powerUpsSpects.vel.y *= -1
     }
-
+    //retorna el valor de ship y modifica las blas 
     setPower(ship) {
 
         return this.powerUpsSpects.power

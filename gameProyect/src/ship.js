@@ -3,9 +3,9 @@ class Ship {
         this.canvasSize = canvasSize,
             this.ctx = ctx,
             this.shipSpects = {
-                pos: { x: posX, y: canvasSize.h / 2 },
-                size: { w: 200, h: 200 },
-                vit: { health: 100, damage: 20 },
+                pos: { x: posX, y: canvasSize.h / 2 - 100 },
+                size: { w: 350, h: 300 },
+                vit: { health: 1000, damage: 20 },
                 speed: 45,
             },
             this.score = 0,
@@ -17,6 +17,9 @@ class Ship {
             } */
             this.bullets = []    //creo una array de balas
         this.setEventListener()
+
+        this.image = new Image()
+        this.image.src = "./img/ship.png"
     }
 
     //obetener los accionadores de teclado
@@ -72,24 +75,36 @@ class Ship {
 
         }
     }
+
     drawShip() {
         this.move()
-        this.ctx.fillStyle = "Black"
-        this.ctx.fillRect(this.shipSpects.pos.x, this.shipSpects.pos.y, this.shipSpects.size.w, this.shipSpects.size.h)
-        //this.ctx.fillRect(this.shipSpects2.pos.x, this.shipSpects2.pos.y, this.shipSpects2.size.w, this.shipSpects2.size.h)
-
+        this.ctx.drawImage(this.image,
+            this.shipSpects.pos.x,
+            this.shipSpects.pos.y,
+            this.shipSpects.size.w,
+            this.shipSpects.size.h
+        )
     }
     move() {
         this.bullets.forEach(bullet => bullet.drawBullets())
+
         this.clearBullets()
     }
-    shoot() {
+    shoot(powerUp) {
         //para establecer los parámetros voy a necesitar el move() de la nave??
-        this.bullets.push(new Bullets(this.ctx, this.shipSpects))
+        if (powerUp) {
+            this.bullets.push(new Bullets(this.ctx, this.shipSpects, true, "up"))
+            this.bullets.push(new Bullets(this.ctx, this.shipSpects, true, "down"))
+        } else {
+            this.bullets.push(new Bullets(this.ctx, this.shipSpects, false, this.shipSpects.pos.y + this.shipSpects.size.h / 2))
+        }
     }
     //limpiamos las balas
     clearBullets() {
-        this.bullets = this.bullets.filter(e => e.bulletsSpects.pos.x < this.canvasSize.w)
+        this.bullets = this.bullets.filter(e => {
+            return e.bulletsSpects.pos.x < this.canvasSize.w && e.bulletsSpects.pos.y > 0 && e.bulletsSpects.pos.y < this.canvasSize.h
+        })
+
     }
     //metodo que recibe daño
     getDamage(damage) {
@@ -122,6 +137,4 @@ class Ship {
 
         return enemyArray.splice(id, 1)
     }
-
-
 }

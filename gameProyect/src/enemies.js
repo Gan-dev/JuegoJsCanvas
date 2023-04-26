@@ -1,18 +1,25 @@
 class Enemies {
-    constructor(ctx, posY, posX, canvasSize, velX, wRandom) {
+    constructor(ctx, posY, posX, canvasSize, velX, wRandom, typeOfEnemine) {
         this.ctx = ctx,
             this.canvasSize = canvasSize
         this.enemiesSpects = {
             pos: { x: posX, y: posY },
-            size: { w: wRandom, h: wRandom },
+            size: { w: 300 + wRandom, h: 200 + wRandom },
             vel: { x: velX, y: 2 },
             vit: { health: 200, damage: 10 }
         }
+        this.typeOfEnemine = typeOfEnemine
+        this.image = new Image()
+        this.image.src = typeOfEnemine
     }
     //Dibuja Enmigos
     drawEnemies() {
-        this.ctx.fillStyle = "Red"
-        this.ctx.fillRect(this.enemiesSpects.pos.x, this.enemiesSpects.pos.y, this.enemiesSpects.size.w, this.enemiesSpects.size.h)
+        this.ctx.drawImage(this.image,
+            this.enemiesSpects.pos.x,
+            this.enemiesSpects.pos.y,
+            this.enemiesSpects.size.w,
+            this.enemiesSpects.size.h
+        )
         this.move()
     }
     move() {
