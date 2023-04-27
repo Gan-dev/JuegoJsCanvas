@@ -5,25 +5,133 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
     <style>
+        img {
+            max-width: 100%;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background-image: url(./img/space1.png);
+
         }
 
         canvas {
-            display: flex;
+            display: none;
             margin: 100px auto;
 
+        }
+
+        p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        h2 {
+            color: black;
+            text-align: center;
+            font-family: 'Bruno Ace SC', cursive;
+        }
+
+        button {
+            padding: 10px 9rem;
+        }
+
+        .menu {
+            display: flex;
+            margin: 20px 50px;
+            background-color: white;
+        }
+
+        .menu div {
+            justify-content: center;
+            text-align: center;
+
+        }
+
+
+        .menu1 {
+            padding: 2rem;
+        }
+
+        .menu2 {
+            padding: 7rem;
+            background-color: black;
+        }
+
+        .powerUps {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+        }
+
+        .powerUps div {
+            color: red;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .powerUps img {
+            width: 20%;
+        }
+
+        .displayNone {
+            display: none;
+        }
+
+        .displayFlex {
+            display: flex;
         }
     </style>
 
     <canvas id="Canvas"></canvas>
+    <div class="menu" id="menu">
+        <div class="menu1">
+            <h2>Shooter Game</h2>
+            <p>Bienvenido al Juego donde eres una nave tripulada por Rick y Morty tu Objetivo es sobrevir todo lo que
+                puedas por el hiperespacio donde te van a intentar matar naves</p>
+            <p>Espacio: Disparar</p>
+            <p>Flechas: Moverse</p>
+            <p>Haz el tamañano de pantalla hasta el 25% y dale al play</p>
+
+            <div class="powerUps">
+                <div>
+                    <p>Velocidad</p>
+                    <img src="./img/speed.png" alt="">
+
+                </div>
+                <div>
+                    <p>Daño</p>
+                    <img src="./img/damage.png" alt="">
+
+                </div>
+                <div>
+                    <p>Doble disparo</p>
+                    <img src="./img/double.png" alt="">
+
+                </div>
+                <div>
+                    <p>Vida</p>
+                    <img src="./img/life.png" alt="">
+                </div>
+
+            </div>
+            <button id="start-button">Start</button>
+        </div>
+        <div class="menu2">
+            <img src="./img/RickAndMorty.jpg" alt="RickAndMorty">
+        </div>
+    </div>
     <script src="./src/enemies.js"></script>
     <script src="./src/bullets.js"></script>
     <script src="./src/powerUps.js"></script>

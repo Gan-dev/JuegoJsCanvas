@@ -4,10 +4,11 @@ class Enemies {
             this.canvasSize = canvasSize
         this.enemiesSpects = {
             pos: { x: posX, y: posY },
-            size: { w: 300 + wRandom, h: 200 + wRandom },
+            size: { w: 300 + wRandom, h: 250 + wRandom },
             vel: { x: velX, y: 2 },
             vit: { health: 200, damage: 10 }
         }
+        this.bullets = []
         this.typeOfEnemine = typeOfEnemine
         this.image = new Image()
         this.image.src = typeOfEnemine
@@ -37,5 +38,6 @@ class Enemies {
     getDamage(bulletsDamage) {
         return this.enemiesSpects.vit.health - bulletsDamage
     }
+
 
 }

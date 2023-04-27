@@ -6,7 +6,7 @@ class Ship {
                 pos: { x: posX, y: canvasSize.h / 2 - 100 },
                 size: { w: 350, h: 300 },
                 vit: { health: 200, damage: 20 },
-                speed: 45,
+                speed: 65,
             },
             this.score = 0,
             this.bullets = []    //creo una array de balas
@@ -50,6 +50,37 @@ class Ship {
             }
 
         }
+        //
+        document.onkeydown = event => {
+            const { key } = event
+
+            if (key == "ArrowLeft") {
+                if (this.shipSpects.pos.x - 50 > 0) {
+                    this.shipSpects.pos.x -= this.shipSpects.speed
+                }
+            }
+
+            if (key == "ArrowRight") {
+                if (this.shipSpects.pos.x + this.shipSpects.size.w < this.canvasSize.w) {
+                    this.shipSpects.pos.x += this.shipSpects.speed
+                }
+            }
+
+            if (key == "ArrowDown") {
+                if (this.shipSpects.pos.y + this.shipSpects.size.h < this.canvasSize.h) {
+                    this.shipSpects.pos.y += this.shipSpects.speed
+                }
+            }
+            //SEgundo jugador
+            if (key == "ArrowUp") {
+                if (this.shipSpects.pos.y > 0) {
+                    this.shipSpects.pos.y -= this.shipSpects.speed
+                }
+            }
+
+
+
+        }
     }
 
     drawShip() {
@@ -74,6 +105,7 @@ class Ship {
         } else {
             this.bullets.push(new Bullets(this.ctx, this.shipSpects, false, this.shipSpects.pos.y + this.shipSpects.size.h / 2))
         }
+        this.shootSoundEffect()
     }
     //limpiamos las balas
     clearBullets() {
@@ -85,6 +117,15 @@ class Ship {
     //metodo que recibe daño
     getDamage(damage) {
         return this.shipSpects.vit.health - damage
+    }
+
+    //efecto disparo
+
+    shootSoundEffect() {
+        this.shootSound = new Audio()
+        this.shootSound.src = './audio/LaserShoot.mp3'
+        this.shootSound.volume = 1
+        this.shootSound.play()
     }
 
     //chequeamos las colisiones de los enemigos con las balas

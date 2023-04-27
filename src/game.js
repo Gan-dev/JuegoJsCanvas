@@ -26,11 +26,23 @@ const Game = {
     //Inicia el Juego
     //aumeta la dificultad
     counterEnemies: 40,
+    isDead: true,
     init() {
         this.getContext()
         this.setDimension()
+        this.playMusic()
         this.start()
     },
+
+    //la música de fondo del juego
+    playMusic() {
+        console.log("PRUEBA MUSICA")
+        this.backgroundSound = new Audio()
+        this.backgroundSound.src = './audio/rick_and_morty_intro_8_bits.mp3'
+        this.backgroundSound.volume = 1
+        this.backgroundSound.play()
+    },
+
     //Obtiene el contexto del juego
     getContext() {
         this.ctx = document.getElementById('Canvas').getContext('2d')
@@ -98,9 +110,10 @@ const Game = {
 
     //corazon tukun
     start() {
+        this.reset()
         this.createShip()
         this.createBackground()
-        idInterval = setInterval(() => {
+        this.idInterval = setInterval(() => {
             this.frame > 5000 ? this.frame = 0 : this.frame++
             this.clearAll()
             this.drawAll()
@@ -151,6 +164,12 @@ const Game = {
                 this.ship.score -= 20
                 this.enemies.splice(i, 1) //eliminamos el asteroide
             }
+
+            // if score es menor que cero, meter la condicion que si es negativo el puntuaje se pone a cero
+
+            if (this.ship.score < 0) {
+                this.ship.score = 0;
+            }
         })
     },
 
@@ -183,8 +202,11 @@ const Game = {
                     }
                     countTimer++
                     if (countTimer == 20) {
-                        this.ship.shipSpects.vit.damage = 20
-                        this.ship.shipSpects.speed = 45
+                        if (power == 2) {
+                            this.ship.shipSpects.vit.damage = 20
+                        } else if (power == 3) {
+                            this.ship.shipSpects.speed = 45
+                        }
                         powerS = false
                         clearInterval(timer)
                     }
@@ -198,10 +220,16 @@ const Game = {
 
     //GAME OVER
     gameOver() {
+        console.log("gameOver")
+        this.ctx.fillStyle = "red"
 
+        this.ctx.font = "200pt Verdana"
+
+        this.ctx.fillText("GAME OVER", this.canvasSize.w / 2 - 780, this.canvasSize.h / 2)
+        this.backgroundSound.pause()
+        this.isDead = true
         clearInterval(this.idInterval)
 
-        console.log("gameOver")
         this.reset()
 
     },
