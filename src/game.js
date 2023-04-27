@@ -25,7 +25,7 @@ const Game = {
     idInterval: undefined,
     //Inicia el Juego
     //aumeta la dificultad
-    counterEnemies: 40,
+    counterEnemies: 30,
     isDead: true,
     init() {
         this.getContext()
@@ -270,7 +270,7 @@ const Game = {
     setDifultad() {
         if (this.frame % 300 == 0) {
             console.log("subinedo la dificultad")
-            this.counterEnemies <= 10 ? this.counterEnemies = 4 : this.counterEnemies -= 5
+            this.counterEnemies <= 10 ? this.counterEnemies = 6 : this.counterEnemies -= 5
             console.log(this.counterEnemies)
 
         }
