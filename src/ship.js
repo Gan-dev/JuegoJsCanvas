@@ -5,7 +5,7 @@ class Ship {
             this.shipSpects = {
                 pos: { x: posX, y: canvasSize.h / 2 - 100 },
                 size: { w: 350, h: 300 },
-                vit: { health: 200, damage: 20 },
+                vit: { health: 100, damage: 20 },
                 speed: 65,
             },
             this.score = 0,

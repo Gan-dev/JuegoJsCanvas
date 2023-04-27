@@ -188,7 +188,7 @@ const Game = {
                 let powerS = false
                 const power = powerUps.setPower()
                 if (power == 1) {
-                    this.ship.shipSpects.vit.health += 30
+                    this.ship.shipSpects.vit.health += 20
                 } else if (power == 2) {
                     this.ship.shipSpects.vit.damage += 30
                 } else if (power === 3) {
@@ -270,7 +270,7 @@ const Game = {
     setDifultad() {
         if (this.frame % 300 == 0) {
             console.log("subinedo la dificultad")
-            this.counterEnemies <= 10 ? this.counterEnemies = 8 : this.counterEnemies -= 5
+            this.counterEnemies <= 10 ? this.counterEnemies = 4 : this.counterEnemies -= 5
             console.log(this.counterEnemies)
 
         }
