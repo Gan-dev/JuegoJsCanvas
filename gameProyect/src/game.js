@@ -70,7 +70,7 @@ const Game = {
     //Sección PowerUps (Creación y limpia)
 
     createPowerUps() {
-        if (this.frame % 200 == 0) {
+        if (this.frame % 100 == 0) {
             let xRandom = Math.floor(Math.random() * 41) + 10 //
             let yRandom = Math.floor(Math.random() * (this.canvasSize.h - 60) - 100)
             let random = Math.floor(Math.random() * 4) + 1 //creo un numero entre uno 1-3
@@ -238,7 +238,7 @@ const Game = {
         this.background = new Background(this.ctx, this.canvasSize);
 
     },
-    //Dificutad
+    //Dificutad  aumenta la velocidad entorno a los ticks del frame 
     setDifultad() {
         if (this.frame % 300 == 0) {
             console.log("subinedo la dificultad")

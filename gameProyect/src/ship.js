@@ -5,16 +5,10 @@ class Ship {
             this.shipSpects = {
                 pos: { x: posX, y: canvasSize.h / 2 - 100 },
                 size: { w: 350, h: 300 },
-                vit: { health: 1000, damage: 20 },
+                vit: { health: 200, damage: 20 },
                 speed: 45,
             },
             this.score = 0,
-            //Segundo Jugadro
-            /* this.shipSpects2 = {
-                pos: { x: 500 + posX, y: 500 },
-                size: { w: 200, h: 200 },
-                speed: 45
-            } */
             this.bullets = []    //creo una array de balas
         this.setEventListener()
 
@@ -50,25 +44,7 @@ class Ship {
                     this.shipSpects.pos.y -= this.shipSpects.speed
                 }
             }
-            //SEgundo jugador
-            /*
-                //nave 2
-                if (key == "a") {
-                    this.shipSpects2.pos.x -= this.shipSpects2.speed
-                }
-            
-                if (key == "d") {
-                    this.shipSpects2.pos.x += this.shipSpects2.speed
-                }
-            
-                if (key == "s") {
-                    this.shipSpects2.pos.y += this.shipSpects2.speed
-            
-                }
-            
-                if (key == "w") {
-                    this.shipSpects2.pos.y -= this.shipSpects2.speed
-                } */
+
             if (key == " ") {
                 this.shoot()
             }

@@ -35,6 +35,9 @@ class PowerUps {
         if (this.powerUpsSpects.vel.x == 3 || this.powerUpsSpects.vel.x == 11) {
             this.powerUpsSpects.pos.y += this.powerUpsSpects.vel.y
         }
+        if (this.powerUpsSpects.pos.y < 0) {
+            this.powerUpsSpects.vel.y = -this.powerUpsSpects.vel.y
+        }
     }
 
     //la gravedad del powerUp

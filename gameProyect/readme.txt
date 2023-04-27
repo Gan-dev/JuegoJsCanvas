@@ -16,4 +16,4 @@ desaparecen los enemegos y las balas  :)
  otro que aumente la vida y la speed
  }
  26/04/2023: He conseguido que dispare 3 veces de manera automatica, dibujamos el fondo  los asteroides y el player
- 
+ 27/04/2023: arrglar detalles y poner los botenos de start y de crear
