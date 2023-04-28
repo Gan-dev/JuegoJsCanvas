@@ -1,9 +1,4 @@
-
-
-
-
 window.onload = () => {
-    console.log(document.getElementById("start-button"))
     document.getElementById("start-button").onclick = () => {
         document.getElementById("menu").classList.add("displayNone")
         document.getElementById('Canvas').classList.add("displayFlex")
