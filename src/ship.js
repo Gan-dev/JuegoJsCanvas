@@ -5,7 +5,7 @@ class Ship {
             this.shipSpects = {
                 pos: { x: posX, y: canvasSize.h / 2 - 100 },
                 size: { w: 350, h: 300 },
-                vit: { health: 100, damage: 20 },
+                vit: { health: 300, damage: 30 },
                 speed: 65,
             },
             this.score = 0,
@@ -124,8 +124,17 @@ class Ship {
     shootSoundEffect() {
         this.shootSound = new Audio()
         this.shootSound.src = './audio/LaserShoot.mp3'
-        this.shootSound.volume = 1
+        this.shootSound.volume = 0.3
         this.shootSound.play()
+    }
+
+    //efecto sonido enemigo destruido
+
+    explosionSoundEffect() {
+        this.explosionSound = new Audio()
+        this.explosionSound.src = '/audio/explosion.mp3'
+        this.explosionSound.volume = 0.3
+        this.explosionSound.play()
     }
 
     //chequeamos las colisiones de los enemigos con las balas
@@ -140,6 +149,7 @@ class Ship {
                     if (enemies.enemiesSpects.vit.health <= 0) {
                         this.score += 10
                         this.removeEnemies(i, enemie)//llamamos a la funcion remove enemies
+                        this.explosionSoundEffect()
 
                     }
                     return this.bullets.splice(i2, 1)

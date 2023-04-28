@@ -36,10 +36,9 @@ const Game = {
 
     //la música de fondo del juego
     playMusic() {
-        console.log("PRUEBA MUSICA")
         this.backgroundSound = new Audio()
         this.backgroundSound.src = './audio/rick_and_morty_intro_8_bits.mp3'
-        this.backgroundSound.volume = 1
+        this.backgroundSound.volume = 0.2
         this.backgroundSound.play()
     },
 
@@ -66,11 +65,13 @@ const Game = {
             let yRandom = Math.floor(Math.random() * (this.canvasSize.h - 60) - 100)
             let xRandom = Math.floor(Math.random() * 41) + 11 // aqui meto velocidades aleatorias en el eje X
             let wRandom = Math.floor(Math.random() * 301) + 50 // aquí varío el tamaño de enemigos dentro de un rango
-            let eRandom = Math.floor(Math.random() * 2) + 1
+            let eRandom = Math.floor(Math.random() * 3) + 1 // generador de numeros aleatorios del 1 al 3
             if (eRandom == 1) {
-                this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom, "./img/badRick1.png"))
+                this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom, "./img/badRick1.png", false))
             } else if (eRandom == 2) {
-                this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom, "./img/asteroide1.png"))
+                this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom, "./img/asteroide1.png", false))
+            } else if (eRandom == 3) {
+                this.enemies.push(new Enemies(this.ctx, yRandom, this.canvasSize.w, this.canvasSize, xRandom, wRandom, "./img/enemyShip.png", true))
             }
         }
     },
@@ -126,8 +127,12 @@ const Game = {
             this.clearPowerUps()
 
             this.ship.checkBulletCollision(this.enemies, this.score) //chekeamos las bullets collison
+            //checkBUlletColision
+            this.checkBulletEnemiesCollision()
             //Si la vida es 0 te da game over
             this.ship.shipSpects.vit.health ? this.isCollision() : this.gameOver()
+            //Si la puntuación es "1000" ganamos.
+            if (this.ship.score == 1000) this.youWin()
             this.isCollisionPower()
             //
             this.setDifultad()
@@ -141,7 +146,7 @@ const Game = {
         this.background.drawBackground()
         this.ship.drawShip()
         this.enemies.forEach(e => {
-            e.drawEnemies()
+            e.drawEnemies(this.frame)
         })
         this.powerUps.forEach(e => {
             e.drawPowerUps()
@@ -161,7 +166,7 @@ const Game = {
                 this.ship.shipSpects.pos.y + this.ship.shipSpects.size.h > enemies.enemiesSpects.pos.y
             ) {
                 this.ship.shipSpects.vit.health = this.ship.getDamage(enemies.enemiesSpects.vit.damage)
-                this.ship.score -= 20
+                this.ship.score -= 10
                 this.enemies.splice(i, 1) //eliminamos el asteroide
             }
 
@@ -171,6 +176,11 @@ const Game = {
                 this.ship.score = 0;
             }
         })
+    },
+    //colisones de enmigos naves
+
+    checkBulletEnemiesCollision() {
+        this.enemies.forEach(e => e.checkBulletCollision(this.ship))
     },
 
     //Colisiones de Nave con PowerUps
@@ -234,6 +244,22 @@ const Game = {
 
     },
 
+    //You Win
+
+    youWin() {
+        console.log("youWin")
+        this.ctx.fillStyle = "green"
+
+        this.ctx.font = "200pt Verdana"
+
+        this.ctx.fillText("You Win!!!", this.canvasSize.w / 2 - 780, this.canvasSize.h / 2)
+        this.backgroundSound.pause()
+        clearInterval(this.idInterval)
+
+        this.reset()
+
+    },
+
     //resetea la pantalla 
     reset() {
         //resetea la pantalla tanto el array de enemigos como el array de power UPs
@@ -269,9 +295,7 @@ const Game = {
     //Dificutad  aumenta la velocidad entorno a los ticks del frame 
     setDifultad() {
         if (this.frame % 300 == 0) {
-            console.log("subinedo la dificultad")
             this.counterEnemies <= 10 ? this.counterEnemies = 6 : this.counterEnemies -= 5
-            console.log(this.counterEnemies)
 
         }
     }

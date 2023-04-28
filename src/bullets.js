@@ -1,5 +1,5 @@
 class Bullets {
-    constructor(ctx, shipSpects, bullets, bulletsDireccion) {
+    constructor(ctx, shipSpects, bullets, bulletsDireccion, enemy) {
         this.posY
         this.bullets = bullets,
             this.bulletsDireccion = bulletsDireccion
@@ -9,6 +9,7 @@ class Bullets {
             size: { w: 120, h: 50 },
             speed: 80
         }
+        this.enemy = enemy
         this.image = new Image()
         this.image.src = "./img/pepiRick.png"
     }
@@ -29,14 +30,20 @@ class Bullets {
     //move() va a establecer el movimiento de la bala
 
     move() {
-        if (this.bullets && this.bulletsDireccion == "up") {
-            this.bulletsSpects.pos.x += this.bulletsSpects.speed
-            this.bulletsSpects.pos.y -= this.bulletsSpects.speed
-        } else if (this.bullets && this.bulletsDireccion == "down") {
-            this.bulletsSpects.pos.x += this.bulletsSpects.speed
-            this.bulletsSpects.pos.y += this.bulletsSpects.speed
+        if (this.enemy) {
+            this.bulletsSpects.pos.x -= this.bulletsSpects.speed - 20
         } else {
-            this.bulletsSpects.pos.x += this.bulletsSpects.speed
+
+            if (this.bullets && this.bulletsDireccion == "up") {
+                this.bulletsSpects.pos.x += this.bulletsSpects.speed
+                this.bulletsSpects.pos.y -= this.bulletsSpects.speed
+            } else if (this.bullets && this.bulletsDireccion == "down") {
+                this.bulletsSpects.pos.x += this.bulletsSpects.speed
+                this.bulletsSpects.pos.y += this.bulletsSpects.speed
+            } else {
+                this.bulletsSpects.pos.x += this.bulletsSpects.speed
+
+            }
 
         }
     }
